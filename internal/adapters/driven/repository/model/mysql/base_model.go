@@ -6,10 +6,6 @@ import (
 	"gorm.io/gorm"
 )
 
-type BaseRepositoryAdapter struct {
-	DB *gorm.DB
-}
-
 type BaseModel struct {
 	ID        uint `gorm:"primaryKey"`
 	CreatedAt time.Time

@@ -1,7 +1,7 @@
 package http
 
 import (
-	"awesome-content/internal/adapters/driven/mysql"
+	"awesome-content/internal/adapters/driven/repository"
 	"awesome-content/internal/adapters/driver/http/handler"
 	"awesome-content/internal/core/service"
 
@@ -9,7 +9,7 @@ import (
 )
 
 func (s *Server) DefineContentRoutes(router *gin.RouterGroup) {
-	repo := mysql.NewContentRepository(s.DB)
+	repo := repository.NewContentRepository(s.DB)
 	srv := service.NewContentService(repo)
 	hdl := handler.NewContentHandler(&srv)
 

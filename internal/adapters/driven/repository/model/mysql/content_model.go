@@ -1,7 +1,7 @@
-package entity
+package mysql
 
-type Content struct {
-	Entity
+type ContentModel struct {
+	BaseModel
 	Name  string
 	Title string
 	Rate  int

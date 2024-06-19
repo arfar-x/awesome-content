@@ -2,9 +2,12 @@ package service
 
 import (
 	"context"
+	"errors"
 
+	"awesome-content/internal/core/entity"
 	"awesome-content/internal/ports/driven/repository"
 	"awesome-content/internal/ports/driver/service"
+	"awesome-content/pkg/errconv"
 )
 
 type ContentService struct {
@@ -15,27 +18,35 @@ func NewContentService(repo repository.ContentRepositoryInterface) service.Conte
 	return &ContentService{Repo: repo}
 }
 
-func (c *ContentService) Feed(ctx context.Context) any {
+func (srv *ContentService) Feed(ctx context.Context) (any, error) {
+	result, err := srv.Repo.Get(ctx, entity.Content{})
+
+	if err != nil {
+		if errors.Is(err, errconv.ErrNotFound) {
+			return nil, errconv.ErrNotFound
+		}
+		return nil, err
+	}
+
+	return result, nil
+}
+
+func (srv *ContentService) Top(ctx context.Context) (any, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c *ContentService) Top(ctx context.Context) any {
+func (srv *ContentService) Catalog(ctx context.Context) (any, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c *ContentService) Catalog(ctx context.Context) any {
+func (srv *ContentService) GetComments(ctx context.Context) (any, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (c *ContentService) GetComments(ctx context.Context) any {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (c *ContentService) Preview(ctx context.Context) any {
+func (srv *ContentService) Preview(ctx context.Context) (any, error) {
 	//TODO implement me
 	panic("implement me")
 }
