@@ -9,3 +9,9 @@ type Entity struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
+
+type EntityType interface{}
+
+type Collection[T EntityType] struct {
+	Entities []T
+}
